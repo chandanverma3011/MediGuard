@@ -3,6 +3,9 @@
   --bg-space: #050510;
   --bg-nebula: #1a1a40;
 
+  --grid-color: rgba(255, 255, 255, 0.03);
+  /* NEW GRID COLOR */
+
   --glass-panel: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-highlight: rgba(255, 255, 255, 0.2);
@@ -30,14 +33,19 @@
 
 /* LIGHT MODE OVERRIDES */
 [data-theme="light"] {
-  --bg-space: #f0f2f5;
+  --bg-space: #f8fafc;
+  /* Slightly Cool White */
   --bg-nebula: #e0e7ff;
 
+  --grid-color: rgba(0, 0, 0, 0.03);
+  /* NEW GRID COLOR LIGHT */
+
   --glass-panel: #ffffff;
-  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border: rgba(0, 0, 0, 0.06);
   --glass-highlight: rgba(0, 0, 0, 0.05);
 
-  --neon-blue: #0ea5e9;
+  --neon-blue: #0284c7;
+  /* Darker blue for contrast */
   --neon-purple: #9333ea;
   --neon-green: #16a34a;
 
@@ -50,7 +58,7 @@
 
   --bg: var(--bg-space);
   --panel: #ffffff;
-  --input-bg: #f8fafc;
+  --input-bg: #f1f5f9;
   --muted: var(--text-muted);
   --text: var(--text-main);
   --accent: var(--neon-blue);
@@ -59,8 +67,13 @@
 
 [data-theme="light"] .landing-page {
   background: white;
-  background-image: radial-gradient(circle at 15% 50%, rgba(147, 51, 234, 0.03), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.03), transparent 25%);
+  /* Retain grid on landing page too via body inheritance usually, or override here */
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.05), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.05), transparent 40%),
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
 }
 
 [data-theme="light"] .landing-nav,
@@ -169,7 +182,10 @@ body {
   /* Recommended modern font, defaulting to sans if not loaded */
   background-image:
     radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.1), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.1), transparent 25%);
+    radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.1), transparent 25%),
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
   background-attachment: fixed;
   overflow-x: hidden;
 }
@@ -708,4 +724,27 @@ tr:hover td {
 .wave-divider {
   display: none;
   /* Hidden for modern clean look */
+}
+
+/* Light Mode Hero Text Contrast Fix */
+[data-theme="light"] .hero-text h1 {
+  background: linear-gradient(to right, #0284c7, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: none;
+}
+
+/* Light Mode Navbar Fix */
+[data-theme="light"] .landing-nav {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .landing-nav .brand-logo,
+[data-theme="light"] .landing-nav .nav-links span {
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .landing-nav .nav-links span:hover {
+  color: var(--neon-blue) !important;
 }
