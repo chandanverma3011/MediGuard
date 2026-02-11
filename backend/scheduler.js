@@ -10,7 +10,7 @@ const checkInventory = async () => {
     console.log('Running Progressive Inventory Check...');
     try {
         // Fetch all batches
-        const batches = await Batch.find().populate('medicineId');
+        const batches = await Batch.find({ cachedStatus: { $ne: 'DISPOSED' } }).populate('medicineId');
 
         for (const batch of batches) {
             // 1. Calculate Dynamic Status (Source of Truth)
