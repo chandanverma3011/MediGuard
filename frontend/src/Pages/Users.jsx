@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -7,11 +7,7 @@ const Users = () => {
 
     const fetchUsers = async () => {
         try {
-            const token = localStorage.getItem("token");
-            const config = {
-                headers: { Authorization: `Bearer ${token}` },
-            };
-            const res = await axios.get("http://localhost:5000/api/auth/users", config);
+            const res = await api.get("/auth/users");
             setUsers(res.data);
         } catch (error) {
             console.error("Error fetching users:", error);
@@ -23,10 +19,7 @@ const Users = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this user?")) {
             try {
-                const token = localStorage.getItem("token");
-                await axios.delete(`http://localhost:5000/api/auth/users/${id}`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                await api.delete(`/auth/users/${id}`);
                 fetchUsers(); // Refresh list
             } catch (error) {
                 alert("Error deleting user");

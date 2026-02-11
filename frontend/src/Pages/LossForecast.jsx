@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 import { motion } from "framer-motion";
 
 const LossForecast = () => {
@@ -9,10 +9,7 @@ const LossForecast = () => {
     useEffect(() => {
         const fetchForecast = async () => {
             try {
-                const token = localStorage.getItem("token");
-                const { data } = await axios.get("http://localhost:5000/api/analytics/loss-forecast", {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
+                const { data } = await api.get("/analytics/loss-forecast");
                 setData(data);
             } catch (error) {
                 console.error("Error fetching forecast:", error);

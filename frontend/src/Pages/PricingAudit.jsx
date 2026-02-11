@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 
 const PricingAudit = () => {
     const [recommendations, setRecommendations] = useState([]);
@@ -9,13 +9,8 @@ const PricingAudit = () => {
     useEffect(() => {
         const fetchRecommendations = async () => {
             try {
-                const token = localStorage.getItem("token");
-                const config = {
-                    headers: { Authorization: `Bearer ${token}` },
-                };
-                const res = await axios.get(
-                    "http://localhost:5000/api/pricing/recommendations",
-                    config
+                const res = await api.get(
+                    "/pricing/recommendations"
                 );
                 setRecommendations(res.data);
             } catch (error) {

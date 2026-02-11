@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
-import axios from 'axios';
+import api from '../Services/api';
 
 const RoleSync = () => {
     const { getToken } = useAuth();
@@ -14,9 +14,7 @@ const RoleSync = () => {
 
             try {
                 // 2. Fetch Profile from Backend (which has the MongoDB Role)
-                const res = await axios.get('http://localhost:5000/api/auth/profile', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const res = await api.get('/auth/profile');
 
                 const dbUser = res.data;
                 const storedUser = JSON.parse(localStorage.getItem('user') || '{}');

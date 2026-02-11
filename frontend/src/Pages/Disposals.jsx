@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 
 const Disposals = () => {
     const [disposals, setDisposals] = useState([]);
@@ -9,13 +9,8 @@ const Disposals = () => {
     useEffect(() => {
         const fetchDisposals = async () => {
             try {
-                const token = localStorage.getItem("token");
-                const config = {
-                    headers: { Authorization: `Bearer ${token}` },
-                };
-                const res = await axios.get(
-                    "http://localhost:5000/api/disposals",
-                    config
+                const res = await api.get(
+                    "/disposals"
                 );
                 setDisposals(res.data);
             } catch (error) {

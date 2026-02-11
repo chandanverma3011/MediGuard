@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
@@ -24,18 +24,12 @@ const Dashboard = () => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
-
-        const statsRes = await axios.get('http://localhost:5000/api/dashboard/stats', config);
+        const statsRes = await api.get('/dashboard/stats');
         setStats(statsRes.data);
 
         // Fetch Pending Users if Admin
         if (user && user.role === 'admin') {
-          const usersRes = await axios.get('http://localhost:5000/api/auth/pending', config);
+          const usersRes = await api.get('/auth/pending');
           setPendingUsers(usersRes.data);
         }
 
@@ -52,9 +46,7 @@ const Dashboard = () => {
   const handleApprove = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/auth/${id}/approve`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.put(`/auth/${id}/approve`);
       // Remove from list
       setPendingUsers(prev => prev.filter(u => u._id !== id));
       alert("User Approved!");

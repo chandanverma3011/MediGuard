@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import api from "../Services/api";
 
 const Medicines = () => {
   const [medicines, setMedicines] = useState([]);
@@ -25,9 +25,7 @@ const Medicines = () => {
 
   const fetchMedicines = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-      const { data } = await axios.get('http://localhost:5000/api/medicines', config);
+      const { data } = await api.get('/medicines');
       setMedicines(data);
     } catch (error) {
       console.error("Error fetching medicines:", error);
@@ -61,10 +59,7 @@ const Medicines = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this medicine?")) {
       try {
-        const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/medicines/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        await api.delete(`/medicines/${id}`);
         fetchMedicines(); // Refresh list
       } catch {
         alert("Error deleting medicine");
@@ -75,13 +70,10 @@ const Medicines = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/medicines/${currentId}`, formData, config);
+        await api.put(`/medicines/${currentId}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/medicines', formData, config);
+        await api.post('/medicines', formData);
       }
 
       setShowModal(false);

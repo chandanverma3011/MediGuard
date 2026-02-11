@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../Services/api";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
@@ -33,9 +33,7 @@ const Navbar = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const { data } = await axios.get("http://localhost:5000/api/notifications", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const { data } = await api.get("/notifications");
       setNotifications(data);
       setUnreadCount(data.filter((n) => !n.isRead).length);
     } catch (error) {
@@ -62,9 +60,7 @@ const Navbar = () => {
   const markAsRead = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:5000/api/notifications/${id}/read`, {}, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.put(`/notifications/${id}/read`);
       fetchNotifications();
     } catch (error) {
       console.error("Error marking read:", error);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import api from "../Services/api";
 import { getAlertColor, getAlertLabel } from "../utils/alertHelper";
 
 const Batches = () => {
@@ -31,12 +31,9 @@ const Batches = () => {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-
       const [batchesRes, medicinesRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/batches', config),
-        axios.get('http://localhost:5000/api/medicines', config)
+        api.get('/batches'),
+        api.get('/medicines')
       ]);
 
       setBatches(batchesRes.data);
@@ -90,14 +87,11 @@ const Batches = () => {
     if (!disposalReason) return alert("Reason is required");
 
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-
-      await axios.post('http://localhost:5000/api/disposals', {
+      await api.post('/disposals', {
         batchId: selectedBatch._id,
         reason: disposalReason,
         method: disposalMethod
-      }, config);
+      });
 
       setShowDisposalModal(false);
       fetchData(); // Refresh list
@@ -111,10 +105,7 @@ const Batches = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this batch?")) {
       try {
-        const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/batches/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        await api.delete(`/batches/${id}`);
         fetchData(); // Refresh list
       } catch {
         alert("Error deleting batch");
@@ -125,13 +116,10 @@ const Batches = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/batches/${currentId}`, formData, config);
+        await api.put(`/batches/${currentId}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/batches', formData, config);
+        await api.post('/batches', formData);
       }
 
       setShowModal(false);

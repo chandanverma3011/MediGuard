@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../Services/api";
 import LandingNavbar from "../components/LandingNavbar";
 
 const Landing = () => {
@@ -16,11 +16,11 @@ const Landing = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+    const endpoint = isLogin ? '/auth/login' : '/auth/register';
 
     try {
       const payload = isLogin ? { email, password } : { name, email, password };
-      const { data } = await axios.post(`http://localhost:5000${endpoint}`, payload);
+      const { data } = await api.post(`${endpoint}`, payload);
 
       if (isLogin) {
         localStorage.setItem("token", data.token);

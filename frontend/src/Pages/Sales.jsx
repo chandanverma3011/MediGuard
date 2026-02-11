@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 
 const Sales = () => {
     const [sales, setSales] = useState([]);
@@ -14,12 +14,9 @@ const Sales = () => {
 
     const fetchData = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const config = { headers: { Authorization: `Bearer ${token}` } };
-
             const [salesRes, medicinesRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/sales', config),
-                axios.get('http://localhost:5000/api/medicines', config)
+                api.get('/sales'),
+                api.get('/medicines')
             ]);
 
             setSales(salesRes.data);
@@ -43,13 +40,10 @@ const Sales = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
-            const config = { headers: { Authorization: `Bearer ${token}` } };
-
-            await axios.post('http://localhost:5000/api/sales', {
+            await api.post('/sales', {
                 medicineId: formData.medicineId,
                 quantity: Number(formData.quantity)
-            }, config);
+            });
 
             // Reset form and refresh list
             setFormData({ medicineId: "", quantity: "" });

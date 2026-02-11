@@ -122,6 +122,17 @@ const importData = async () => {
         });
         console.log('Admin User Created');
 
+        // Create Pharmacist User
+        await User.create({
+            name: 'Test Pharmacist',
+            email: 'pharmacist@mediguard.com',
+            password: hashedPassword,
+            role: 'pharmacist',
+            isApproved: true,
+            status: 'approved'
+        });
+        console.log('Pharmacist User Created');
+
         const createdMedicines = await Medicine.insertMany(medicinesData);
         console.log(`Inserted ${createdMedicines.length} medicines`);
 

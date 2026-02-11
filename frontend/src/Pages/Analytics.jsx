@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../Services/api";
 
 const Analytics = () => {
     const [events, setEvents] = useState([]);
@@ -8,9 +8,7 @@ const Analytics = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const config = { headers: { Authorization: `Bearer ${token}` } };
-                const res = await axios.get('http://localhost:5000/api/analytics/demand-drift', config);
+                const res = await api.get('/analytics/demand-drift');
                 setEvents(res.data);
             } catch (error) {
                 console.error("Error fetching analytics:", error);
