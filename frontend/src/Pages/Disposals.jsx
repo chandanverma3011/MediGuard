@@ -126,7 +126,7 @@ const Disposals = () => {
                                                         isoDateStr = d.toISOString().slice(0, 10);
                                                     }
                                                 }
-                                            } catch (e) {
+                                            } catch {
                                                 // Ignore date parsing errors
                                             }
 

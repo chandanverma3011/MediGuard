@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../Services/api";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line no-unused-vars
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -21,8 +21,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        if (!token) return;
+        if (!localStorage.getItem('token')) return;
 
         const statsRes = await api.get('/dashboard/stats');
         setStats(statsRes.data);
@@ -45,7 +44,7 @@ const Dashboard = () => {
 
   const handleApprove = async (id) => {
     try {
-      const token = localStorage.getItem('token');
+
       await api.put(`/auth/${id}/approve`);
       // Remove from list
       setPendingUsers(prev => prev.filter(u => u._id !== id));

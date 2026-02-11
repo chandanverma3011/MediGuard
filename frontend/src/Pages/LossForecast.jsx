@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../Services/api";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line no-unused-vars
 
 const LossForecast = () => {
     const [data, setData] = useState(null);

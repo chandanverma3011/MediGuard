@@ -21,7 +21,7 @@ const Users = () => {
             try {
                 await api.delete(`/auth/users/${id}`);
                 fetchUsers(); // Refresh list
-            } catch (error) {
+            } catch {
                 alert("Error deleting user");
             }
         }

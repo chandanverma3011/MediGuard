@@ -30,8 +30,7 @@ const Navbar = () => {
 
   const fetchNotifications = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!localStorage.getItem("token")) return;
 
       const { data } = await api.get("/notifications");
       setNotifications(data);
@@ -59,7 +58,6 @@ const Navbar = () => {
 
   const markAsRead = async (id) => {
     try {
-      const token = localStorage.getItem("token");
       await api.put(`/notifications/${id}/read`);
       fetchNotifications();
     } catch (error) {
