@@ -14,10 +14,10 @@ import LossForecast from "./Pages/LossForecast";
 import Features from "./Pages/Features";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
-import NotFound from "./Pages/NotFound";
+import Notfound from "./Pages/Notfound";
 import ResetPassword from "./Pages/ResetPassword";
 import ForgotPassword from "./Pages/ForgotPassword";
-import ProtectedRoute from "./Components/ProtectedRoute";
+import Protectedroute from "./Components/Protectedroute";
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
 
-          <Route element={<ProtectedRoute />}>
+          <Route element={<Protectedroute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/medicines" element={<Medicines />} />
             <Route path="/batches" element={<Batches />} />
@@ -44,7 +44,7 @@ function App() {
             <Route path="/users" element={<Users />} />
           </Route>
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
