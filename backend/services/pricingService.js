@@ -29,7 +29,9 @@ const calculateBatchPricing = (batch) => {
         return {
             status: PRICING_RULES.STATUS.EXPIRED,
             reason: 'Batch is Expired. Cannot sell.',
-            recommendation: null
+            recommendation: null,
+            originalMRP: batch.mrp,
+            costPrice: batch.costPrice
         };
     }
 
@@ -42,6 +44,7 @@ const calculateBatchPricing = (batch) => {
             status: PRICING_RULES.STATUS.SAFE,
             reason: `Days to expiry (${diffDays}) is outside 10-15 day window.`,
             originalMRP: batch.mrp,
+            costPrice: batch.costPrice,
             sellingPrice: batch.mrp
         };
     }

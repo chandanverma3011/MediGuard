@@ -81,6 +81,8 @@ const generateBatch = (medicineId) => {
     }
 
     const stock = Math.floor(Math.random() * 500) + 10;
+    const costPrice = Math.floor(Math.random() * 450) + 50; // Random cost 50-500
+    const mrp = Math.floor(costPrice * (1.2 + Math.random() * 0.3)); // 20-50% margin
 
     let status = 'Ok';
     if (stock < 50) status = 'Low Stock';
@@ -96,6 +98,8 @@ const generateBatch = (medicineId) => {
         medicineId,
         expiryDate: futureDate,
         stock,
+        costPrice,
+        mrp,
         status
     };
 };
