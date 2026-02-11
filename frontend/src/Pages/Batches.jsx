@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import api from "../Services/api";
-import { getAlertColor, getAlertLabel } from "../utils/alertHelper";
+import { getAlertColor, getAlertLabel } from "../Utils/alertHelper";
 
 const Batches = () => {
   const [batches, setBatches] = useState([]);

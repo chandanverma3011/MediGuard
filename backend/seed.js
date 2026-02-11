@@ -91,12 +91,17 @@ const generateBatch = (medicineId) => {
 
     if (diffDays <= 90 && diffDays > 0) status = 'Expiring Soon'; // Basic logic, backend might override on fetch
 
+    const costPrice = Math.floor(Math.random() * 500) + 10;
+    const mrp = Math.floor(costPrice * (1 + Math.random() * 0.5)); // MRP is 10-50% higher than cost
+
     return {
         batchNumber,
         medicineId,
         expiryDate: futureDate,
         stock,
-        status
+        status,
+        costPrice,
+        mrp
     };
 };
 

@@ -1,4 +1,4 @@
-import LandingNavbar from "../components/LandingNavbar";
+import LandingNavbar from "../Components/LandingNavbar";
 
 const Contact = () => {
     return (

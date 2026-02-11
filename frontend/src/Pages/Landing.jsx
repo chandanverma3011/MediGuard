@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../Services/api";
-import LandingNavbar from "../components/LandingNavbar";
+import LandingNavbar from "../Components/LandingNavbar";
 
 const Landing = () => {
   const [isLogin, setIsLogin] = useState(true);
